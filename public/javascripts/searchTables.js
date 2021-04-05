@@ -2,13 +2,9 @@ const searchBar = document.querySelector('#searchBar');
 const searchBar2 = document.querySelector('#searchBar2');
 
 const filterTable = (input) => {
-  const table = input.nextElementSibling;
+  const table = input.nextElementSibling.querySelector('table');
   const rows = table.querySelectorAll('tr');
   const filter = input.value.toUpperCase();
-  if (table.nextElementSibling) {
-    const displayedRows = table.nextElementSibling.querySelector('#displayedRows');
-  }
-
 
   for (let i = 1; i < rows.length; i++) {
     let textValue = rows[i].textContent;
@@ -19,7 +15,8 @@ const filterTable = (input) => {
     }
   }
 
-  if (table.nextElementSibling) {
+  if (table.parentElement.nextElementSibling) {
+    const displayedRows = table.parentElement.nextElementSibling.querySelector('#displayedRows');
     let numRows = table.querySelectorAll('tr:not([style*="display: none"])').length - 1;
     displayedRows.innerText = numRows;
   }

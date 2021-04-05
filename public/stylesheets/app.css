@@ -9,6 +9,7 @@ body {
     position: fixed;
     background-image: linear-gradient(180deg, #12232E 25%, #007CC7 100%);
     transition: 0.4s;
+    z-index: 0;
 }
 
 .sidenav-link {
