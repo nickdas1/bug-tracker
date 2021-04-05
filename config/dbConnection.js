@@ -13,10 +13,10 @@ const mysql = require('mysql');
 // });
 
 const connection = mysql.createConnection({
-    host: 'vkh7buea61avxg07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    user: 'lb3b9c0qtk3irjkv',
-    password: 'zvixroqusrz5ofh1',
-    database: 'iyfq1zehpobjsrch',
+    host: process.env.JAWSDBHOST,
+    user: process.env,JAWSDBUSER,
+    password: process.env.JAWSDBPASSWORD,
+    database: process.env.JAWSDBDATABASE,
     multipleStatements: true
 });
 
