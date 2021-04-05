@@ -8,6 +8,8 @@ const ExpressError = require('./utils/expressError');
 const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const passport = require('passport');
+const MySQLStore = require('express-mysql-session')(session);
+const connection = require('./config/dbConnection');
 
 const userRoutes = require('./routes/users');
 const projectRoutes = require('./routes/projects');
@@ -24,7 +26,19 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+const options = {
+    host: process.env.JAWSDBHOST,
+    user: process.env.JAWSDBUSER,
+    password: process.env.JAWSDBPASSWORD,
+    database: process.env.JAWSDBDATABASE
+};
+
+const sessionStore = new MySQLStore(options, connection);
+
 const sessionConfig = {
+    store: sessionStore,
     name: 'session',
     secret: 'secret',
     resave: false,
