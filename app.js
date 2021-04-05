@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const connection = require('./config/dbConnection');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -9,10 +8,6 @@ const ExpressError = require('./utils/expressError');
 const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const { isLoggedIn, authRole } = require('./middleware');
-const { roles } = require('./config/roles');
-
 
 const userRoutes = require('./routes/users');
 const projectRoutes = require('./routes/projects');
