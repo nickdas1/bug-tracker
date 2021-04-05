@@ -12,11 +12,20 @@ const mysql = require('mysql');
 //     multipleStatements: true
 // });
 
+// const connection = mysql.createPool({
+//     host: 'us-cdbr-east-03.cleardb.com',
+//     user: 'b728b897ed6f3f',
+//     password: '6233a1fb',
+//     database: 'heroku_86cf96b9bd6e888',
+//     multipleStatements: true
+// });
+
+
 const connection = mysql.createPool({
-    host: 'us-cdbr-east-03.cleardb.com',
-    user: 'b728b897ed6f3f',
-    password: '6233a1fb',
-    database: 'heroku_86cf96b9bd6e888',
+    host: 'vkh7buea61avxg07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: 'lb3b9c0qtk3irjkv',
+    password: 'zvixroqusrz5ofh1',
+    database: 'iyfq1zehpobjsrch',
     multipleStatements: true
 });
 
