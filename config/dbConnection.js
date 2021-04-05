@@ -20,12 +20,12 @@ const connection = mysql.createPool({
     multipleStatements: true
 });
 
-connection.connect(function (err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('MYSQL CONNECTION OPEN');
-});
+// connection.connect(function (err) {
+//     if (err) {
+//         console.error('error connecting: ' + err.stack);
+//         return;
+//     }
+//     console.log('MYSQL CONNECTION OPEN');
+// });
 
 module.exports = connection;
