@@ -137,7 +137,7 @@
 
             // The data for our dataset
             data: {
-                labels: ['<%- highPriority[0].priority %>', '<%- mediumPriority[0].priority %>', '<%- lowPriority[0].priority %>'],
+                labels: ['High', 'Medium', 'Low'],
                 datasets: [{
                     label: 'No. of Tickets',
                     backgroundColor: ['#f94144', '#f9c74f', '#277da1'],
@@ -166,7 +166,7 @@
 
             // The data for our dataset
             data: {
-                labels: ['<%- bugsErrors[0].type %>', '<%- requests[0].type %>', '<%- other[0].type %>'],
+                labels: ['Bugs/Errors', 'Requests', 'Other'],
                 datasets: [{
                     label: 'No. of Tickets',
                     backgroundColor: ['#f94144', '#f9c74f', '#277da1'],
@@ -174,7 +174,7 @@
                     data: ['<%- bugsErrors[0].count %>', '<%- requests[0].count %>', '<%- other[0].count %>', 0]
                 }],
 
-                labels: ['<%- bugsErrors[0].type %>', '<%- requests[0].type %>', '<%- other[0].type %>']
+                labels: ['Bugs/Errors', 'Requests', 'Other']
             },
 
             // Configuration options go here
@@ -197,7 +197,7 @@
 
             // The data for our dataset
             data: {
-                labels: ['<%- open[0].status %>', '<%- inProgress[0].status %>', '<%- closed[0].status %>'],
+                labels: ['Open', 'In Progress', 'Closed'],
                 datasets: [{
                     label: 'No. of Tickets',
                     backgroundColor: ['#f94144', '#f9c74f', '#277da1'],
