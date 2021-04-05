@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const options = {
     host: process.env.JAWSDBHOST,
     user: process.env.JAWSDBUSER,
+    port: process.env.PORT,
     password: process.env.JAWSDBPASSWORD,
     database: process.env.JAWSDBDATABASE
 };
