@@ -1,0 +1,313 @@
+<% layout('layouts/boilerplate') %>
+
+<p><a href="/projects/<%= tickets[0].project_id %>">Back to Project</a></p>
+<p><a href="/mytickets">Back to All Tickets</a></p>
+
+<div class="container-fluid mb-3">
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h2>Ticket Details</h2>
+                    <% if (currentUser && tickets[0].ticket_user_id === currentUser.user_id) { %>
+                    <div class="d-flex justify-content-end">
+                        <a class="btn btn-primary mx-2 mb-1"
+                            href="/projects/<%= tickets[0].project_id %>/tickets/<%= tickets[0].ticket_id %>/edit">Edit</a>
+                        <form
+                            action="/projects/<%= tickets[0].ticket_project_id %>/tickets/<%= tickets[0].ticket_id %>?_method=DELETE"
+                            method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="d-flex justify-content-around">
+                            <div class="col-md-6">
+                                <p class="me-2">
+                                    <span class="fs-5">Title</span><br>
+                                    <%= tickets[0].title %>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <span class="fs-5">Description</span><br>
+                                    <%= tickets[0].ticket_description %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="d-flex justify-content-around">
+                            <div class="col-md-6">
+                                <p class="me-2">
+                                    <span class="fs-5">Submitted By</span><br>
+                                    <%= users[0].username %>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <span class="fs-5">Assigned Developer</span><br>
+                                    <% if (!tickets[0].assigned_dev) { %>
+                                    None
+                                    <% } %>
+                                    <%= tickets[0].assigned_dev %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="d-flex justify-content-around">
+                            <div class="col-md-6">
+                                <p class="me-2">
+                                    <span class="fs-5">Project</span><br>
+                                    <%= tickets[0].name %>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <span class="fs-5">Priority</span><br>
+                                    <%= tickets[0].priority %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="d-flex justify-content-around">
+                            <div class="col-md-6">
+                                <p class="me-2">
+                                    <span class="fs-5">Status</span><br>
+                                    <%= tickets[0].status %>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <span class="fs-5">Type</span><br>
+                                    <%= tickets[0].type %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="d-flex justify-content-around">
+                            <div class="col-md-6">
+                                <p class="me-2">
+                                    <span class="fs-5">Created</span><br>
+                                    <%= new Date(tickets[0].created_at).toLocaleString() %>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <span class="fs-5">Updated</span><br>
+                                    <% if (!tickets[0].updated_at) { %> <% } else { %>
+                                    <%= new Date(tickets[0].updated_at).toLocaleString() %>
+                                    <% } %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="card shadow h-100">
+                <div class="card-header">
+                    <h3>All comments for this ticket</h3>
+                </div>
+                <div class="card-body">
+                    <% if (currentUser) { %>
+
+                    <form class="needs-validation"
+                        action="/projects/<%= tickets[0].project_id %>/tickets/<%= ticketId %>/comments" method="POST"
+                        novalidate>
+                        <div>
+                            <label for="comment">Add a Comment:</label>
+                            <input class="form-control mb-1" type="text" id="comment" name="comment" required>
+                        </div>
+                        <button class="btn btn-sm btn-primary">Add</button>
+                    </form>
+
+                    <% } %>
+
+                    <input class="form-control" type="text" id="searchBar" placeholder="Search">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Commenter</th>
+                                    <th scope="col">Comment</th>
+                                    <th scope="col">Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let comment of comments) { %>
+                                <tr>
+                                    <td><%= comment.username %></td>
+                                    <td><%= comment.comment %></td>
+                                    <td><%= new Date(comment.created_at).toLocaleString() %></td>
+                                </tr>
+                                <% }%>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>Displaying <span id="displayedRows"><%= numCommentRows %></span> of <%= numCommentRows %> results
+                        on Page
+                        <%= current %></p>
+
+                    <nav aria-label="Comment Page navigation">
+                        <% if (numCommentPages && numCommentPages > 0) { %>
+                        <ul class="pagination justify-content-center">
+                            <% if (current === 1) { %>
+                            <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+                            <% } else if (historyPageQuery) { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= Number(current) - 1 %>&historypage=<%= historyCurrent %>">&laquo;</a>
+                            </li>
+                            <% } else { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= Number(current) - 1 %>">&laquo;</a>
+                            </li>
+                            <% } %>
+
+                            <% let i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                            <% if (i !== 1) { %>
+                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                            <% } %>
+
+                            <% for (; i <= (Number(current) + 4) && i <= numCommentPages; i++) { %>
+                            <% if (i === current) { %>
+                            <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                            <% } else if (historyPageQuery) { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= i %>&historypage=<%= historyCurrent %>"><%= i %></a>
+                            </li>
+                            <% } else { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= i %>"><%= i %></a></li>
+                            <% } %>
+                            <% if (i === Number(current) + 4 && i < numCommentPages) { %>
+                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                            <% } %>
+                            <% } %>
+
+                            <% if (current === numCommentPages) { %>
+                            <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+                            <% } else if (historyPageQuery) { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= Number(current) + 1 %>&historypage=<%= historyCurrent %>">&raquo;</a>
+                            </li>
+                            <% } else { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= Number(current) + 1 %>">&raquo;</a>
+                            </li>
+                            <% } %>
+
+                        </ul>
+                        <% } %>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="card shadow h-100">
+                <div class="card-header">
+                    <h3>Ticket History</h3>
+                </div>
+                <div class="card-body">
+                    <input class="form-control" type="text" id="searchBar2" placeholder="Search">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Field</th>
+                                    <th scope="col">Old Value</th>
+                                    <th scope="col">New Value</th>
+                                    <th scope="col">Date Changed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let row of history) { %>
+                                <tr>
+                                    <td><%= row.field %></td>
+                                    <td><%= row.oldvalue %></td>
+                                    <td><%= row.newvalue %></td>
+                                    <td><%= new Date(row.updated_at).toLocaleString() %></td>
+                                </tr>
+                                <% }%>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>Displaying <span id="displayedRows"><%= numHistoryRows %></span> of <%= numHistoryRows %> results
+                        on Page
+                        <%= historyCurrent %></p>
+
+                    <nav aria-label="History Page navigation">
+                        <% if (numHistoryPages && numHistoryPages > 0) { %>
+                        <ul class="pagination justify-content-center">
+
+                            <% if (historyCurrent === 1) { %>
+                            <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+                            <% } else if (pageQuery) { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= current %>&historypage=<%= Number(historyCurrent) - 1 %>">&laquo;</a>
+                            </li>
+                            <% } else { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= Number(historyCurrent) - 1 %>">&laquo;</a>
+                            </li>
+                            <% } %>
+
+                            <% let i = (Number(historyCurrent) > 5 ? Number(historyCurrent) - 4 : 1) %>
+                            <% if (i !== 1) { %>
+                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                            <% } %>
+
+                            <% for (; i <= (Number(historyCurrent) + 4) && i <= numHistoryPages; i++) { %>
+                            <% if (i === historyCurrent) { %>
+                            <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                            <% } else if (pageQuery) { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= current %>&historypage=<%= i %>"><%= i %></a>
+                            </li>
+                            <% } else { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?historypage=<%= i %>"><%= i %></a>
+                            </li>
+                            <% } %>
+                            <% if (i === Number(historyCurrent) + 4 && i < numHistoryPages) { %>
+                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                            <% } %>
+                            <% } %>
+
+                            <% if (historyCurrent === numHistoryPages) { %>
+                            <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+                            <% } else if (pageQuery) { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?page=<%= current %>&historypage=<%= Number(historyCurrent) + 1 %>">&raquo;</a>
+                            </li>
+                            <% } else { %>
+                            <li><a class="page-link"
+                                    href="/projects/<%= id %>/tickets/<%= ticketId %>?historypage=<%= Number(historyCurrent) + 1 %>">&raquo;</a>
+                            </li>
+                            <% } %>
+
+                        </ul>
+                        <% } %>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

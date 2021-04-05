@@ -1,0 +1,87 @@
+<% layout('layouts/boilerplate') %>
+
+<p><a href="/projects/<%= id %>">Back to Project</a></p>
+
+<div class="container-fluid">
+    <div class="card shadow">
+        <div class="card-header mb-3">
+            <h2>Users</h2>
+        </div>
+
+        <input class="form-control" type="text" id="searchBar" placeholder="Search">
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Add</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let user of users) { %>
+                        <tr>
+                            <td><%= user.username %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.role %></td>
+                            <td>
+                                <form action="/projects/<%= id %>/users/addusers" method="POST">
+                                    <input type="hidden" name="user_id" id="<%= user.user_id %>"
+                                        value="<%= user.user_id %>">
+                                    <button class="btn btn-sm btn-success">Add</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+
+                <p>Displaying <span id="displayedRows"><%= numRows %></span> of <%= numRows %> users on Page
+                    <%= current %></p>
+
+                <nav aria-label="Page navigation">
+                    <% if (numPages && numPages > 0) { %>
+                    <ul class="pagination justify-content-center">
+
+                        <% if (current === 1) { %>
+                        <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+                        <% } else { %>
+                        <li><a class="page-link"
+                                href="/projects/<%= id %>/users/addusers?page=<%= Number(current) - 1 %>">&laquo;</a>
+                        </li>
+                        <% } %>
+
+                        <% let i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                        <% if (i !== 1) { %>
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                        <% } %>
+                        <% for (; i <= (Number(current) + 4) && i <= numPages; i++) { %>
+                        <% if (i === current) { %>
+                        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                        <% } else { %>
+                        <li><a class="page-link" href="/projects/<%= id %>/users/addusers?page=<%= i %>"><%= i %></a>
+                        </li>
+                        <% } %>
+                        <% if (i === Number(current) + 4 && i < numPages) { %>
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                        <% } %>
+                        <% } %>
+
+                        <% if (current === numPages) { %>
+                        <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+                        <% } else { %>
+                        <li><a class="page-link"
+                                href="/projects/<%= id %>/users/addusers?page=<%= Number(current) + 1 %>">&raquo;</a>
+                        </li>
+                        <% } %>
+
+                    </ul>
+                    <% } %>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

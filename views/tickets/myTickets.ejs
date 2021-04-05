@@ -1,0 +1,89 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container-fluid">
+    <div class="card shadow">
+        <div class="card-header mb-3">
+            <h2>Tickets</h2>
+            <p>All tickets in the database</p>
+        </div>
+        <input class="form-control" type="text" id="searchBar" placeholder="Search">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Priority</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let ticket of tickets) { %>
+                        <tr>
+                            <td><%= ticket.title %></td>
+                            <td><%= ticket.name %></td>
+                            <td><%= ticket.priority %></td>
+                            <td><%= ticket.status %></td>
+                            <td><%= ticket.type %></td>
+                            <td><%= new Date(ticket.created_at).toLocaleString() %></td>
+                            <td>
+                                <ul>
+                                    <li><a
+                                            href="/projects/<%= ticket.project_id %>/tickets/<%= ticket.ticket_id %>">Details</a>
+                                    </li>
+                                    <% if (currentUser.user_id === ticket.ticket_user_id) { %>
+                                    <li><a
+                                            href="/projects/<%= ticket.project_id %>/tickets/<%= ticket.ticket_id %>/edit">Edit</a>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <p>Displaying <span id="displayedRows"><%= numRows %></span> of <%= numRows %> results on Page
+                <%= current %></p>
+
+            <nav aria-label="Page navigation">
+                <% if (numPages && numPages > 0) { %>
+                <ul class="pagination justify-content-center">
+
+                    <% if (current === 1) { %>
+                    <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+                    <% } else { %>
+                    <li><a class="page-link" href="/mytickets?page=<%= Number(current) - 1 %>">&laquo;</a></li>
+                    <% } %>
+
+                    <% let i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= numPages; i++) { %>
+                    <% if (i === current) { %>
+                    <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                    <% } else { %>
+                    <li><a class="page-link" href="/mytickets?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i === Number(current) + 4 && i < numPages) { %>
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <% } %>
+                    <% } %>
+
+                    <% if (current === numPages) { %>
+                    <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+                    <% } else { %>
+                    <li><a class="page-link" href="/mytickets?page=<%= Number(current) + 1 %>">&raquo;</a></li>
+                    <% } %>
+
+                </ul>
+                <% } %>
+            </nav>
+        </div>
+    </div>
+</div>

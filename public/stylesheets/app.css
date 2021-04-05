@@ -1,0 +1,124 @@
+body {
+    min-height: 100vh;
+    background-color: rgb(218, 213, 213);
+}
+
+.sidenav {
+    width: 200px;
+    min-height: 100vh;
+    position: fixed;
+    background-image: linear-gradient(180deg, #12232E 25%, #007CC7 100%);
+    transition: 0.4s;
+}
+
+.sidenav-link {
+    font-size: 1.25rem;
+}
+
+.sidenav-link:active, .sidenav-link:focus, .sidenav-link:hover {
+    background-color: #007CC7;
+}
+
+.my-container {
+    transition: 0.4s;
+    margin-left: 200px;
+}
+
+.inactive-nav {
+    margin-left: -300px;
+}
+
+.inactive-cont {
+    margin-left: 0px;
+}
+
+#menu-btn {
+    color: #EEFBFB;
+}
+
+.navbar-top {
+    background-image: linear-gradient(to right, #12232E 25%, #007CC7 100%);
+    color: #12232E;
+}
+
+.currentUser {
+    color: rgba(255,255,255,.55);
+    font-size: 1rem;
+}
+
+.username {
+    color: #EEFBFB;
+    font-size: 1rem;
+}
+
+table > thead > tr > th {
+    cursor: pointer;
+    position: relative;
+}
+
+table > thead > tr > th:after,
+table > thead > tr > th:after,
+table > thead > tr > th:after {
+    content: ' ';
+    position: absolute;
+    height: 0;
+    width: 0;
+    right: 10px;
+    top: 16px;
+}
+
+table > thead > tr > th:after {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #4DA8DA;
+    border-bottom: 0px solid transparent;
+}
+
+table > thead > tr > th:hover:after {
+    border-top: 5px solid #12232E;
+}
+
+table > thead > tr > th.asc:after {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 0px solid transparent;
+    border-bottom: 5px solid #333;
+}
+
+table > thead > tr > th.asc:hover:after {
+    border-bottom: 5px solid #333;
+}
+
+table > thead > tr > th.desc:after {    
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333;
+    border-bottom: 5px solid transparent;
+}
+
+a {
+    text-decoration: none;
+}
+
+.bg-gradient {
+    background: linear-gradient(124deg, #203647, #007CC7, #4DA8DA) !important;
+}
+
+#searchBar, #searchBar2 {
+    width: auto;
+    margin: 5px;
+}
+
+
+.card {
+    background-color: rgb(240, 240, 240);
+}
+
+.card-header {
+    background: linear-gradient(90deg, rgba(17,34,83,1) 0%, rgba(55,78,145,1) 75%);
+    color: #EEFBFB;
+}
+
+.btn a {
+    color: #EEFBFB;
+}

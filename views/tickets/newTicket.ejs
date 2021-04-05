@@ -1,0 +1,60 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">Create Ticket For: <%= results[0].name %></h1>
+    <div class="col-6 offset-3">
+        <form action="/projects/<%= results[0].project_id %>/tickets/newticket" method="POST" class="needs-validation"
+            novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="title">Ticket Title</label>
+                <input class="form-control" type="text" id="title" name="title" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Ticket Description</label>
+                <input class="form-control" type="text" id="description" name="description" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="priority">Ticket Priority</label>
+                <select class="form-select form-select-sm" name="priority" id="priority">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="status">Ticket Status</label>
+                <select class="form-select form-select-sm" name="status" id="status">
+                    <option value="Open">Open</option>
+                    <option value="Closed">Closed</option>
+                    <option value="In Progress">In Progress</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="type">Ticket Type</label>
+                <select class="form-select form-select-sm" name="type" id="type">
+                    <option value="Bugs/Errors">Bugs/Erros</option>
+                    <option value="Requests">Feature Requests</option>
+                    <option value="Other">Other Comments</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="assignee">Assigned Developer</label>
+                <select class="form-select form-select-sm" name="assignee" id="assignee">
+                    <option value="None">None</option>
+                    <% for (let user of results) { %>
+                    <option value="<%= user.username %>"><%=user.username %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <button class="btn btn-primary mb-3">Submit Ticket</button>
+        </form>
+
+        <a href="/projects/<%= results[0].project_id %>">Cancel</a>
+    </div>
+</div>

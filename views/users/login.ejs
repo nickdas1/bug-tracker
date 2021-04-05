@@ -1,0 +1,115 @@
+<% layout('layouts/auth')%>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-xl-4 col-xs-3">
+            <div class="card shadow my-5 p-5">
+                <h1>Login</h1>
+                <form action="/login" method="POST" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label class="form-label" for="username">Username</label>
+                        <input class="form-control" type="text" id="username" name="username" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control" type="password" id="password" name="password" required>
+                    </div>
+                    <button class="btn btn-primary">Login</button>
+                </form>
+                <hr>
+                <a href="/register">Register as a new user</a>
+                <hr>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Sign In as Demo User
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Demo User Login</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <form action="/login/demo" method="POST">
+                                                <input type="hidden" name="username" id="username" value="Demo_Admin">
+                                                <input type="hidden" name="password" id="password" value="demoadmin">
+                                                <button class="btn text-wrap">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                                        fill="#118ab2" class="bi bi-person-badge" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                        <path
+                                                            d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+                                                    </svg><br>
+                                                    Admin
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-3">
+                                            <form action="/login/demo" method="POST">
+                                                <input type="hidden" name="username" id="username" value="Demo_Manager">
+                                                <input type="hidden" name="password" id="password" value="demomanager">
+                                                <button class="btn text-wrap">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                                        fill="#06d6a0" class="bi bi-person-badge" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                        <path
+                                                            d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+                                                    </svg><br>
+                                                    Project Manager
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-3">
+                                            <form action="/login/demo" method="POST">
+                                                <input type="hidden" name="username" id="username"
+                                                    value="Demo_Developer">
+                                                <input type="hidden" name="password" id="password"
+                                                    value="demodeveloper">
+                                                <button class="btn text-wrap">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                                        fill="#f4a261" class="bi bi-person-badge" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                        <path
+                                                            d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+                                                    </svg><br>
+                                                    Developer
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-3">
+                                            <form action="/login/demo" method="POST">
+                                                <input type="hidden" name="username" id="username"
+                                                    value="Demo_Submitter">
+                                                <input type="hidden" name="password" id="password"
+                                                    value="demosubmitter">
+                                                <button class="btn text-wrap">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                                        fill="#ffd166" class="bi bi-person-badge" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                        <path
+                                                            d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5v10.795a4.2 4.2 0 0 0-.776-.492C11.392 12.387 10.063 12 8 12s-3.392.387-4.224.803a4.2 4.2 0 0 0-.776.492V2.5z" />
+                                                    </svg><br>
+                                                    Submitter
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<% layout('layouts/boilerplate') %>
+
+<% if (currentUser.role !== 'None') { %> 
+<a class="btn btn-primary mb-3" href="/projects/new">Create New Project</a>
+<% } %> 
+
+<div class="container-fluid">
+    <div class="card shadow">
+        <div class="card-header mb-3">
+            <h2>Projects</h2>
+            <p>All projects in the database</p>
+        </div>
+
+        <input class="form-control" type="text" id="searchBar" placeholder="Search">
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let project of projects){ %>
+                        <tr>
+                            <td><%= project.name %></td>
+                            <td><%= project.description %></td>
+                            <td><a href="/projects/<%=project.project_id%>">Details</a></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Displaying <span id="displayedRows"><%= numRows %></span> of <%= numRows %> results on Page
+                <%= current %></p>
+
+            <nav aria-label="Page navigation">
+                <% if (numPages && numPages > 0) { %>
+                <ul class="pagination justify-content-center">
+                    <% if (current === 1) { %>
+                    <li class="page-item disabled"><a class="page-link">First</a></li>
+                    <% } else { %>
+                    <li><a class="page-link" href="/projects">First</a></li>
+                    <% } %>
+
+                    <% if (current === 1) { %>
+                    <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+                    <% } else { %>
+                    <li><a class="page-link" href="/projects?page=<%= Number(current) - 1 %>">&laquo;</a></li>
+                    <% } %>
+
+                    <% let i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= numPages; i++) { %>
+                    <% if (i === current) { %>
+                    <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                    <% } else { %>
+                    <li><a class="page-link" href="/projects?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i === Number(current) + 4 && i < numPages) { %>
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                    <% } %>
+                    <% } %>
+
+                    <% if (current === numPages) { %>
+                    <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+                    <% } else { %>
+                    <li><a class="page-link" href="/projects?page=<%= Number(current) + 1 %>">&raquo;</a></li>
+                    <% } %>
+
+                    <% if (current === numPages) { %>
+                    <li class="page-item disabled"><a class="page-link">Last</a></li>
+                    <% } else { %>
+                    <li><a class="page-link" href="/projects?page=<%= numPages %>">Last</a></li>
+                    <% } %>
+                </ul>
+                <% } %>
+            </nav>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <div class="col-md-3">
+        <form action="/manageroles" method="POST">
+            <label for="users" class="form-label">Select 1 or More Users</label>
+            <select class="form-select" size="7" name="users" id="users" multiple>
+                <% for (let user of selection) { %>
+                <option value="<%= user.username %>"><%=user.username %></option>
+                <% } %>
+            </select>
+        <hr>
+            <label for="role" class="form-label">Select the Role to Assign</label>
+            <select class="form-select mb-3" name="role" id="role">
+                <option value="Admin">Admin</option>
+                <option value="Project Manager">Project Manager</option>
+                <option value="Developer">Developer</option>
+                <option value="Submitter">Submitter</option>
+                <option value="None">None</option>
+            </select>
+        
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <div class="container-fluid col-md-9">
+        <div class="card shadow">
+            <div class="card-header">
+                <h2>All Personnel</h2>
+                <p>All users in the database</p>
+            </div>
+            <div class="card-body">
+                
+        
+                <input class="form-control" type="text" id="searchBar" placeholder="Search">
+                
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let user of users) { %>
+                        <tr>
+                            <td><%= user.username %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.role %></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+                
+                <p>Displaying <span id="displayedRows"><%= numRows %></span> of <%= numRows %> users on Page <%= current %></p>
+                
+                <nav aria-label="Page navigation">
+                    <% if (numPages && numPages > 0) { %>
+                    <ul class="pagination justify-content-center">
+                 
+                        <% if (current === 1) { %>
+                        <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+                        <% } else { %>
+                        <li><a class="page-link" href="/manageroles?page=<%= Number(current) - 1 %>">&laquo;</a></li>
+                        <% } %>
+                 
+                        <% let i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                        <% if (i !== 1) { %>
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                        <% } %>
+                        <% for (; i <= (Number(current) + 4) && i <= numPages; i++) { %>
+                        <% if (i === current) { %>
+                        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                        <% } else { %>
+                        <li><a class="page-link" href="/manageroles?page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% if (i === Number(current) + 4 && i < numPages) { %>
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                        <% } %>
+                        <% } %>
+                 
+                        <% if (current === numPages) { %>
+                        <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+                        <% } else { %>
+                        <li><a class="page-link" href="/manageroles?page=<%= Number(current) + 1 %>">&raquo;</a></li>
+                        <% } %>
+                 
+                    </ul>
+                    <% } %>
+                </nav>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+
+    

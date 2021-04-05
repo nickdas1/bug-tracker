@@ -1,0 +1,70 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">
+        Edit Ticket For: <%= results[0].name %>
+    </h1>
+    <div class="col-6 offset-3">
+        <form action="/projects/<%= results[0].ticket_project_id %>/tickets/<%= results[0].ticket_id %>?_method=PUT"
+            method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="title">Ticket Title</label>
+                <input class="form-control" type="text" id="title" name="title" value="<%=results[0].title%>">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Ticket Description</label>
+                <input class="form-control" type="text" id="description" name="description"
+                    value="<%= results[0].ticket_description %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="priority">Ticket Priority</label>
+                <select class="form-select form-select-sm" name="priority" id="priority">
+                    <option value="High" <% if (results[0].priority === 'High') { %> selected <% } %>>High</option>
+                    <option value="Medium" <% if (results[0].priority === 'Medium') { %> selected <% } %>>Medium
+                    </option>
+                    <option value="Low" <% if (results[0].priority === 'Low') { %> selected <% } %>>Low</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="status">Ticket Status</label>
+                <select class="form-select form-select-sm" name="status" id="status">
+                    <option value="Open" <% if (results[0].status === 'Open') { %> selected <% } %>>Open</option>
+                    <option value="Closed" <% if (results[0].status === 'Closed') { %> selected <% } %>>Closed</option>
+                    <option value="In Progress" <% if (results[0].status === 'In Progress') { %> selected <% } %>>In
+                        Progress</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="type">Ticket Type</label>
+                <select class="form-select form-select-sm" name="type" id="type">
+                    <option value="Bugs/Errors" <% if (results[0].type === 'Bugs/Errors') { %> selected <% } %>>
+                        Bugs/Erros
+                    </option>
+                    <option value="Requests" <% if (results[0].type === 'Requests') { %> selected <% } %>>Feature
+                        Requests
+                    </option>
+                    <option value="Other" <% if (results[0].type === 'Other') { %> selected <% } %>>Other Comments
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="assignee">Assigned Developer</label>
+                <select class="form-select form-select-sm" name="assignee" id="assignee">
+                    <option value="None">None</option>
+                    <% for (let user of results) { %>
+                    <option value="<%= user.username %>" <% if (results[0].assigned_dev === user.username) { %> selected
+                        <% } %>><%=user.username %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <button class="btn btn-primary mb-3">Edit Ticket</button>
+        </form>
+        <a href="/projects/<%= results[0].project_id %>/tickets/<%= results[0].ticket_id %>">Cancel</a>
+    </div>
+</div>
