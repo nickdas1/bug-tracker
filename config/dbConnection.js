@@ -13,7 +13,7 @@ const mysql = require('mysql');
 
 const connection = mysql.createConnection({
     host: process.env.JAWSDBHOST,
-    user: process.env,JAWSDBUSER,
+    user: process.env.JAWSDBUSER,
     password: process.env.JAWSDBPASSWORD,
     database: process.env.JAWSDBDATABASE,
     multipleStatements: true
