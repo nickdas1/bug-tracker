@@ -12,7 +12,7 @@ const mysql = require('mysql');
 //     multipleStatements: true
 // });
 
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
     host: 'us-cdbr-east-03.cleardb.com',
     user: 'b728b897ed6f3f',
     password: '6233a1fb',
