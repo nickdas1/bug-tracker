@@ -137,12 +137,12 @@
 
             // The data for our dataset
             data: {
-                labels: ['<%- priority[0].priority %>', '<%- priority[2].priority %>', '<%- priority[1].priority %>'],
+                labels: ['<%- highPriority[0].priority %>', '<%- mediumPriority[0].priority %>', '<%- lowPriority[0].priority %>'],
                 datasets: [{
                     label: 'No. of Tickets',
                     backgroundColor: ['#f94144', '#f9c74f', '#277da1'],
                     minBarLength: 0,
-                    data: ['<%- priority[0].count %>', '<%- priority[2].count %>', '<%- priority[1].count %>', 0]
+                    data: ['<%- highPriority[0].count %>', '<%- mediumPriority[0].count %>', '<%- lowPriority[0].count %>', 0]
                 }]
             },
 
@@ -166,15 +166,15 @@
 
             // The data for our dataset
             data: {
-                labels: ['<%- type[0].type %>', '<%- type[2].type %>', '<%- type[1].type %>'],
+                labels: ['<%- bugsErrors[0].type %>', '<%- requests[0].type %>', '<%- other[0].type %>'],
                 datasets: [{
                     label: 'No. of Tickets',
                     backgroundColor: ['#f94144', '#f9c74f', '#277da1'],
                     minBarLength: 0,
-                    data: ['<%- type[0].count %>', '<%- type[2].count %>', '<%- type[1].count %>', 0]
+                    data: ['<%- bugsErrors[0].count %>', '<%- requests[0].count %>', '<%- other[0].count %>', 0]
                 }],
 
-                labels: ['<%- type[0].type %>', '<%- type[2].type %>', '<%- type[1].type %>']
+                labels: ['<%- bugsErrors[0].type %>', '<%- requests[0].type %>', '<%- other[0].type %>']
             },
 
             // Configuration options go here
@@ -197,12 +197,12 @@
 
             // The data for our dataset
             data: {
-                labels: ['<%- status[0].status %>', '<%- status[2].status %>', '<%- status[1].status %>'],
+                labels: ['<%- open[0].status %>', '<%- inProgress[0].status %>', '<%- closed[0].status %>'],
                 datasets: [{
                     label: 'No. of Tickets',
                     backgroundColor: ['#f94144', '#f9c74f', '#277da1'],
                     minBarLength: 0,
-                    data: ['<%- status[0].count %>', '<%- status[2].count %>', '<%- status[1].count %>', 0]
+                    data: ['<%- open[0].count %>', '<%- inProgress[0].count %>', '<%- closed[0].count %>', 0]
                 }]
             },
 
