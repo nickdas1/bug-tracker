@@ -136,7 +136,7 @@
             <div class="card shadow h-100">
                 <div class="card-header">
                     <h2>Assigned Personnel</h2>
-                    <% if (currentUser.role === 'Admin' || currentUser.role === 'Manager') { %>
+                    <% if (currentUser.role === 'Admin' || currentUser.role === 'Project Manager') { %>
                     <a class="btn btn-primary" href="/projects/<%= id %>/users/addusers">Add Users</a>
                     <% } %>
                 </div>
