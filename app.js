@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -29,19 +33,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 const options = {
-    host: process.env.JAWSDBHOST,
-    user: process.env.JAWSDBUSER,
+    host: process.env.JAWSDB_HOST,
+    user: process.env.JAWSDB_USER,
     port: process.env.PORT,
-    password: process.env.JAWSDBPASSWORD,
-    database: process.env.JAWSDBDATABASE
+    password: process.env.JAWSDB_PASSWORD,
+    database: process.env.JAWSDB_DATABASE
 };
 
 const sessionStore = new MySQLStore(options, connection);
 
+const secret = process.env.SECRET || 'secret';
+
 const sessionConfig = {
     store: sessionStore,
     name: 'session',
-    secret: 'secret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {

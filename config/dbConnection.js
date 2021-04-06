@@ -1,5 +1,6 @@
-
+if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
+}
 
 const mysql = require('mysql');
 
@@ -12,10 +13,10 @@ const mysql = require('mysql');
 // });
 
 const connection = mysql.createConnection({
-    host: 'vkh7buea61avxg07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    user: 'lb3b9c0qtk3irjkv',
-    password: 'zvixroqusrz5ofh1',
-    database: 'iyfq1zehpobjsrch',
+    host: process.env.JAWSDB_HOST,
+    user: process.env.JAWSDB_USER,
+    password: process.env.JAWSDB_PASSWORD,
+    database: process.env.JAWSDB_DATABASE,
     multipleStatements: true
 });
 
