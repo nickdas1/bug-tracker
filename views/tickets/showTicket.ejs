@@ -9,10 +9,12 @@
             <div class="card shadow">
                 <div class="card-header">
                     <h2>Ticket Details</h2>
-                    <% if (currentUser && tickets[0].ticket_user_id === currentUser.user_id) { %>
+                    <% if (currentUser && tickets[0].ticket_user_id === currentUser.user_id || currentUser.role === 'Submitter') { %>
                     <div class="d-flex justify-content-end">
                         <a class="btn btn-primary mx-2 mb-1"
                             href="/projects/<%= tickets[0].project_id %>/tickets/<%= tickets[0].ticket_id %>/edit">Edit</a>
+                    <% } %> 
+                    <% if (currentUser && tickets[0].ticket_user_id === currentUser.user_id) { %>
                         <form
                             action="/projects/<%= tickets[0].ticket_project_id %>/tickets/<%= tickets[0].ticket_id %>?_method=DELETE"
                             method="POST">
