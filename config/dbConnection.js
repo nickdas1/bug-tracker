@@ -4,14 +4,6 @@ if (process.env.NODE_ENV !== "production") {
 
 const mysql = require('mysql');
 
-// const connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: process.env.PASSWORD,
-//     database: process.env.DATABASE,
-//     multipleStatements: true
-// });
-
 const connection = mysql.createConnection({
     host: process.env.JAWSDB_HOST,
     user: process.env.JAWSDB_USER,
